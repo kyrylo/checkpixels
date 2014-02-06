@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0037)http://www.checkpixels.com/test.html/ -->
+<html xmlns="http://www.w3.org/1999/xhtml"><script>var urchinTracker=function(){},_gaq={push:function(){try {if(arguments[0][0]=='_link')window.location.href=arguments[0][1]}catch(er){}}},_gat={_createTracker:function(){}, _getTracker:function(){return{__noSuchMethod__:function(){},_link:function(o){if(o)location.href=o;},_linkByPost:function(){return true;},_getLinkerUrl:function(o){return o;},_trackEvent:function(){}}}};</script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="description" content="Look at the page, if there any dead subpixels, they will appear as black dots. If you see nothing, click left mouse button for next test. There are 7 tests, the last is black screen for finding glowing pixels.">
+<meta http-equiv="keywords" content="dead pixels, dead subpixels, lcd check">
+<!--<base href="http://www.checkpixels.com/">--><base href=".">
+<title>Online LCD dead pixels detection.</title>
+<style type="text/css"><!--
+body { margin:0; height:100%; text-align:center; overflow: hidden; }
+html { height:100%; }
+.test { position:absolute; left:0; top:0; width:100%; height:100%; display:none; }
+.test.red_1 { background-image: url('red_1.gif'); }
+.test.red_2 { background-image: url('red_2.gif'); }
+.test.green_1 { background-image: url('green_1.gif'); }
+.test.green_2 { background-image: url('green_2.gif'); }
+.test.blue_1 { background-image: url('blue_1.gif'); }
+.test.blue_2 { background-image: url('blue_2.gif'); }
+.test.black { background-color:#000; }
+#menu { width:100%; height:200px; position:absolute; background-color:#FFF; border:3px solid #000; color:#000; display:block; top:40%; }
+#menu a { display:block; margin:80px 0; font:bold 32px Verdana, Arial, Helvetica, sans-serif }
+#menu a { color:#E84; }
+#menu a:hover { color:#0C0; border:none; text-decoration:none; }
+--></style>
+
+<body screen_capture_injected="true" style="">
+<p>This page is specially colored for testing LCDs by detecting dead pixels. Normally, you should not see this text, therefore probably you have JavaScript support and/or images disabled in your browser.</p>
+<div class="test red_1" id="t0" onclick="changeTest()" onmousemove="mouseMoved()" style="display: block;">&nbsp;</div>
+<div class="test red_2" id="t3" onclick="changeTest()" onmousemove="mouseMoved()">&nbsp;</div>
+<div class="test green_1" id="t1" onclick="changeTest()" onmousemove="mouseMoved()">&nbsp;</div>
+<div class="test green_2" id="t4" onclick="changeTest()" onmousemove="mouseMoved()">&nbsp;</div>
+<div class="test blue_1" id="t2" onclick="changeTest()" onmousemove="mouseMoved()">&nbsp;</div>
+<div class="test blue_2" id="t5" onclick="changeTest()" onmousemove="mouseMoved()">&nbsp;</div>
+<div class="test black" id="t6" onclick="changeTest()" onmousemove="mouseMoved()" style="display: none;">&nbsp;</div>
+<div id="menu" style="display: none;"><a href="http://www.checkpixels.com/" title="Finish LCD pixels test" onmouseout="hideMenu()">Finish the test</a></div>
+<script language="javascript" type="text/javascript">
+var test_idx = 6;
+var timeout_id = -1;
+var menu = document.getElementById("menu");
+var m_l = menu.offsetLeft;
+var m_r = m_l + menu.offsetWidth;
+var m_t = menu.offsetTop;
+var m_b = m_t + menu.offsetHeight;
+menu.style.display = "none";
+function changeTest()
+{
+	var idx_old = test_idx;
+	test_idx = (test_idx + 1) % 7;
+	document.getElementById('t' + test_idx).style.display = 'block';
+	document.getElementById('t' + idx_old).style.display = 'none';
+}
+changeTest();
+mouseMoved(1);
+function mouseMoved(init)
+{
+	if (timeout_id != -1) {
+		window.clearTimeout(timeout_id);
+		timeout_id = -1;
+	}
+	if (init == null) {
+		if (event.clientX > m_l && event.clientX < m_r && event.clientY > m_t && event.clientY < m_b) {
+			timeout_id = window.setTimeout('showMenu()', 300, "JavaScript");
+		}
+		else {
+			hideMenu();
+		}
+	}
+}
+function showMenu()
+{
+	menu.style.display = "block";
+	timeout_id = -1;
+}
+function hideMenu()
+{
+	menu.style.display = "none";
+}
+
+</script>
+</body>
